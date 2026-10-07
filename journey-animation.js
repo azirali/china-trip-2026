@@ -16,7 +16,11 @@ const places = {
   furong: { x: 615, y: 390, name: 'Фужун', label: [-58, 13] },
   chongqing: { x: 563, y: 325, name: 'Чунцин', label: [-100, 4] },
   chengdu: { x: 519, y: 299, name: 'Чэнду', label: [-54, -15] },
-  pandas: { x: 516, y: 266, name: 'Панды' }
+  pandas: { x: 516, y: 266, name: 'Панды' },
+  cqwalk: { x: 545, y: 356, name: 'Городские прогулки' },
+  xianwalk: { x: 611, y: 230, name: 'Стена Сианя' },
+  army: { x: 659, y: 235, name: 'Терракотовая армия' },
+  longmen: { x: 699, y: 285, name: 'Лунмэнь' }
 };
 // WGS84 coordinates for the real map; animated connections indicate order, not exact tracks.
 const coordinates = {
@@ -24,37 +28,8 @@ const coordinates = {
   mutianyu: [40.43204, 116.57054], xian: [34.3416, 108.9398], luoyang: [34.6836, 112.4536],
   shaolin: [34.508, 112.935], yiyang: [28.5539, 112.3552], zjj: [29.1294, 110.4783],
   avatar: [29.34, 110.43], tianmen: [29.05, 110.48], furong: [28.68, 109.96],
-  chongqing: [29.563, 106.5516], chengdu: [30.5728, 104.0668], pandas: [30.7432, 104.1357]
-};
-
-const leg = (date, mode, title, detail, points) => ({ date, mode, title, detail, points });
-const first = leg(11, 'plane', 'Астана → Урумчи', '19:30 — вылет. В Урумчи прилетим уже 12-го в 01:00 по местному времени.', ['astana', 'urc']);
-const last = leg(20, 'plane', 'Урумчи → Астана', '02:00 — обратный вылет. Из-за часовых поясов в Астане будет 01:50 того же дня.', ['urc', 'astana']);
-const returnToUrumqi = leg(19, 'plane', 'Чунцин → Урумчи', '15:15–19:15, затем самостоятельная пересадка на рейс домой. Запас — 6 ч 45 мин.', ['chongqing', 'urc']);
-const shaolin = leg(14, 'road', 'Лоян → Шаолинь → Лоян', 'Выезд к храму и Лесу пагод, затем возвращение в Лоян. Дорога около 1,5–2 часов в сторону.', ['luoyang', 'shaolin', 'luoyang']);
-const sleeper = leg(15, 'train', 'Лоян → Иян', 'Вечером — ночной K538. Здесь спальная полка одновременно заменяет гостиницу.', ['luoyang', 'yiyang']);
-const toAvatar = leg(16, 'train', 'Иян → Чжанцзяцзе', 'Такси на другой вокзал Иян-Южный, затем поезд G2430 к горам «Аватара».', ['yiyang', 'zjj']);
-const avatar = leg(17, 'walk', 'День среди летающих гор', 'Юаньцзяцзе, Байлун и Тяньцзы. Вечером — переезд в центр Чжанцзяцзе.', ['zjj', 'avatar', 'zjj']);
-const toChongqing = { ...leg(18, 'train', 'Тяньмэнь → Чунцин', 'Ранний Тяньмэнь, затем G3376 в Чунцин. В A/B приезд поздний, огни города зависят от времени.', ['zjj', 'tianmen', 'zjj', 'chongqing']), segmentModes: ['road', 'road', 'train'] };
-
-const itineraries = {
-  A: [first,
-    leg(12, 'plane', 'Урумчи → Сиань', 'Утренний прямой рейс 08:40–12:05. Вечером — древний город и еда.', ['urc', 'xian']),
-    leg(13, 'train', 'Сиань → Лоян', 'Терракотовая армия утром. Вечером — поезд до Лояна.', ['xian', 'luoyang']),
-    shaolin, sleeper, toAvatar, avatar, toChongqing, returnToUrumqi, last],
-  B: [first,
-    leg(12, 'plane', 'Урумчи → Пекин', 'Утренний рейс даёт прогулку по Пекину. Вечерний экономит деньги, но почти забирает день.', ['urc', 'beijing']),
-    { ...leg(13, 'mixed', 'Великая стена → ночной поезд', 'Мутяньюй днём. Вечером — спальный поезд K269 из Пекина в Лоян.', ['beijing', 'mutianyu', 'beijing', 'luoyang']), segmentModes: ['road', 'road', 'train'] },
-    shaolin, sleeper, toAvatar, avatar, toChongqing, returnToUrumqi, last],
-  C: [first,
-    leg(12, 'plane', 'Урумчи → Чэнду', 'Прямой рейс в Чэнду, затем чайные и сычуаньская кухня.', ['urc', 'chengdu']),
-    leg(13, 'walk', 'Утро у панд', 'Рано в базу разведения панд, потом свободное время в Чэнду.', ['chengdu', 'pandas', 'chengdu']),
-    leg(14, 'train', 'Чэнду → Чунцин', 'Утренний поезд, полный день и полноценный неоновый вечер в Чунцине.', ['chengdu', 'chongqing']),
-    leg(15, 'train', 'Чунцин → Чжанцзяцзе', 'Ранний скоростной поезд. После заселения — первая прогулка у гор.', ['chongqing', 'zjj']),
-    leg(16, 'walk', 'Горы «Аватара»', 'Полный день на тропах, смотровых и подъёмниках лесного парка.', ['zjj', 'avatar', 'zjj']),
-    leg(17, 'walk', 'Небесные врата Тяньмэнь', 'Отдельный день на высоте. Схему канаток нужно проверить ближе к поездке.', ['zjj', 'tianmen', 'zjj']),
-    leg(18, 'train', 'Фужун → Чунцин', 'Выезд к водопаду Фужуна и обратно через Чжанцзяцзе, затем поезд в Чунцин. Этот участок зависит от ноябрьского расписания.', ['zjj', 'furong', 'zjj', 'chongqing']),
-    returnToUrumqi, last]
+  chongqing: [29.563, 106.5516], chengdu: [30.5728, 104.0668], pandas: [30.7432, 104.1357],
+  cqwalk: [29.5484, 106.5843], xianwalk: [34.2528,108.9465], army: [34.3841,109.2785], longmen: [34.5555,112.4686]
 };
 
 const modes = {
@@ -82,16 +57,15 @@ function pathFor(scene) {
 
 let session;
 let preferredMap = 'sketch';
-export function mountJourneyAnimation({ route, fast, late, onDay }) {
+export function mountJourneyAnimation({ route, scenes: inputScenes, span, onDay }) {
   session?.destroy();
   const root = document.querySelector('#trip-animation');
-  const scenes = itineraries[route].map(scene => ({ ...scene }));
-  if (route === 'A' && fast) scenes[2].detail = 'Терракотовая армия утром. Быстрый G2022 идёт с Xi’an North до Luoyang Longmen — другие вокзалы.';
-  if (route === 'B' && late) scenes[1].detail = 'Вечерний рейс 16:55–20:45 экономит 9 663 ₸, но убирает дневную прогулку по Пекину.';
+  const scenes = inputScenes.map(scene => ({ ...scene, ...(scene.mode === 'mixed' ? {segmentModes: ['road','road','train']} : {}) }));
+  const dateLabel = date => new Date(`${date}T12:00:00`).toLocaleDateString('ru-RU', {day:'numeric', month:'long'});
   const used = [...new Set(scenes.flatMap(scene => scene.points))];
   const labelled = used.filter(key => places[key].label);
   root.innerHTML = `
-    <div class="movie-head"><span>МАРШРУТ ${route} · 11–20 НОЯБРЯ</span><div><button type="button" id="movie-play-top">▶ Запустить</button><span id="movie-counter">01 / 10</span></div></div>
+    <div class="movie-head"><span>МАРШРУТ ${route} · ${span.toUpperCase()}</span><div><button type="button" id="movie-play-top">▶ Запустить</button><span id="movie-counter">01 / ${scenes.length}</span></div></div>
     <div class="movie-view-bar"><div class="movie-view-switch" role="group" aria-label="Вид карты"><button type="button" id="movie-sketch" aria-pressed="true">✦ Кино-схема</button><button type="button" id="movie-geography" aria-pressed="false">◎ Точная карта</button></div><span>Переключайте вид во время движения</span></div>
     <div class="movie-map-viewport" id="movie-map-viewport" tabindex="0" aria-label="Схема маршрута; на узком экране прокручивается в стороны">
       <svg id="movie-map" viewBox="0 0 900 445" role="img" aria-label="Схема перемещений от Астаны через Китай и обратно">
@@ -119,7 +93,7 @@ export function mountJourneyAnimation({ route, fast, late, onDay }) {
     <div class="movie-caption"><span id="movie-map-note">Схема по расположению городов; расстояния и длительность анимации условные.</span><span>✈ самолёт · ▰ поезд · ▰ автобус · ↟ пешком</span></div>
     <div class="movie-lower"><div class="movie-current"><span id="movie-mode" class="movie-mode"></span><div><span id="movie-date" class="movie-date"></span><h4 id="movie-title"></h4><p id="movie-detail"></p></div></div>
       <div class="movie-controls"><button type="button" id="movie-prev" aria-label="Предыдущий этап">‹</button><button type="button" id="movie-play" class="movie-play">▶ Смотреть путь</button><button type="button" id="movie-next" aria-label="Следующий этап">›</button></div></div>
-    <div class="movie-timeline"><label for="movie-range">Выбрать день маршрута</label><input id="movie-range" type="range" min="0" max="9" value="0" step="1"><div class="movie-days" id="movie-days"></div></div>
+    <div class="movie-timeline"><label for="movie-range">Выбрать день маршрута</label><input id="movie-range" type="range" min="0" max="${scenes.length - 1}" value="0" step="1"><div class="movie-days" id="movie-days"></div></div>
     <span id="movie-announcement" class="sr-only" aria-live="polite"></span>`;
 
   const tracks = root.querySelector('#movie-tracks');
@@ -151,7 +125,8 @@ export function mountJourneyAnimation({ route, fast, late, onDay }) {
     label.textContent = place.name;
     nodes.append(label);
   });
-  root.querySelector('#movie-days').innerHTML = scenes.map((scene, i) => `<button type="button" data-movie-day="${i}" aria-label="День ${i+1}, ${scene.date} ноября">${scene.date}</button>`).join('');
+  root.querySelector('#movie-days').style.gridTemplateColumns = `repeat(${scenes.length}, minmax(0, 1fr))`;
+  root.querySelector('#movie-days').innerHTML = scenes.map((scene, i) => `<button type="button" data-movie-day="${i}" aria-label="День ${i+1}, ${dateLabel(scene.date)}">${new Date(`${scene.date}T12:00:00`).getDate()}</button>`).join('');
 
   let index = 0;
   let progress = reducedMotion() ? 1 : 0;
@@ -239,7 +214,7 @@ export function mountJourneyAnimation({ route, fast, late, onDay }) {
     const scene = scenes[index];
     shownMode = '';
     root.querySelector('#movie-counter').textContent = `${String(index+1).padStart(2, '0')} / ${scenes.length}`;
-    root.querySelector('#movie-date').textContent = `ДЕНЬ ${index+1} · ${scene.date} НОЯБРЯ`;
+    root.querySelector('#movie-date').textContent = `ДЕНЬ ${index+1} · ${dateLabel(scene.date).toUpperCase()}`;
     root.querySelector('#movie-title').textContent = scene.title;
     root.querySelector('#movie-detail').textContent = scene.detail;
     range.value = String(index);
@@ -250,7 +225,7 @@ export function mountJourneyAnimation({ route, fast, late, onDay }) {
     root.querySelector('#movie-prev').disabled = index === 0;
     root.querySelector('#movie-next').disabled = index === scenes.length - 1;
     if (announce) {
-      root.querySelector('#movie-announcement').textContent = `День ${index+1}, ${scene.date} ноября. ${scene.title}.`;
+      root.querySelector('#movie-announcement').textContent = `День ${index+1}, ${dateLabel(scene.date)}. ${scene.title}.`;
       onDay?.(scene.date);
     }
     paint(true);

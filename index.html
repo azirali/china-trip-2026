@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#101718" />
-  <meta name="description" content="Китай на двоих из Астаны. Сравните маршруты на 11–20 ноября 2026: билеты, горы Аватара, Великая стена, Шаолинь, панды и честный бюджет." />
+  <meta name="description" content="Китай на двоих из Астаны. Вылет 25–26 ноября 2026: два города, проверенные перелёты, карта и бюджет до 500 тысяч тенге." />
   <meta property="og:title" content="Китай, поехали? · 10 дней на двоих" />
-  <meta property="og:description" content="Три маршрута, шесть способов сэкономить и один большой повод собрать рюкзак. Выбираем поездку вместе." />
+  <meta property="og:description" content="Два города без гонки: Чэнду и Чунцин, горы Аватара или Сиань и Шаолинь. Выбираем вместе." />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23101718'/%3E%3Cpath d='M12 47 27 18 36 34 42 24 54 47Z' fill='%23d6ef83'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="styles.css" />
@@ -22,27 +22,24 @@
   </header>
   <main id="top">
     <section class="intro shell">
-      <div><p class="eyebrow">ASTANA → CHINA / 11—20 NOV 2026</p><h1>Два рюкзака.<br/><span>Десять дней в Китае.</span></h1><p class="intro-copy">Горы из «Аватара», ночной Чунцин и дороги, ради которых стоит уехать. Выбираем, что будет нашим.</p></div>
-      <div class="trip-stamp"><span>НА ЧЕЛОВЕКА</span><strong>500<span>тыс. ₸</span></strong><div><span>2 друга</span><span>10 дней</span><span>1 приключение</span></div></div>
+      <div><p class="eyebrow">ASTANA → CHINA / 25–26 NOV → 4 DEC 2026</p><h1>Два города.<br/><span>Больше самого Китая.</span></h1><p class="intro-copy">Вылетаем около 25 ноября. Больше гуляем, меньше переезжаем. Сравниваем три пары городов и оставляем деньги на впечатления.</p></div>
+      <div class="trip-stamp"><span>НА ЧЕЛОВЕКА</span><strong>500<span>тыс. ₸</span></strong><div><span>2 друга</span><span>9–10 дней</span><span>1 приключение</span></div></div>
     </section>
     <section class="shell routes-section" id="routes">
-      <div class="section-heading"><div><p class="eyebrow">01 / ВЫБИРАЕМ ХАРАКТЕР ПОЕЗДКИ</p><h2>Три маршрута. Разный Китай.</h2></div><p>Сравнивайте весь путь,<br/>а не один дешёвый билет.</p></div>
-      <div class="route-choices" role="group" aria-label="Выбор маршрута">
-        <button class="route-choice selected" data-route="A" aria-pressed="true"><span class="route-letter">A</span><span class="route-label"><b>Древние города и горы</b><small>Сиань · Шаолинь · «Аватар»</small></span><span class="route-price">453 тыс.<small>база с резервом / чел.</small></span></button>
-        <button class="route-choice" data-route="B" aria-pressed="false"><span class="route-letter">B</span><span class="route-label"><b>Все три мечты</b><small>Стена · Шаолинь · «Аватар»</small></span><span class="route-price">484 тыс.<small>база с резервом / чел.</small></span></button>
-        <button class="route-choice" data-route="C" aria-pressed="false"><span class="route-letter">C</span><span class="route-label"><b>Панды, неон и высота</b><small>Чэнду · Чунцин · Фужун</small></span><span class="route-price">468 тыс.<small>база с резервом / чел.</small></span></button>
-      </div>
-      <div id="route-spotlight" class="route-spotlight"><div class="spotlight-copy"><p class="eyebrow">МАРШРУТ A / 4 ГОРОДА + ШАОЛИНЬ</p><h3>От терракотовых воинов<br/>к летающим горам.</h3><p>Сиань, Лоян, Чжанцзяцзе и Чунцин. Одна ночь в поезде, шесть — в гостиницах. Без Пекина, зато с запасом денег на впечатления.</p><div class="quick-stats"><span><b>215 тыс. ₸</b>весь межгород</span><span><b>1 ночь</b>в поезде</span><span><b>47 тыс. ₸</b>свободно до лимита</span></div></div><div class="spotlight-visual"><div class="photo-caption"><span>张家界</span><strong>Чжанцзяцзе</strong><small>Здесь горы кажутся невозможными.</small></div></div></div>
+      <div class="section-heading"><div><p class="eyebrow">01 / ВЫБИРАЕМ ХАРАКТЕР ПОЕЗДКИ</p><h2>Два города. Три варианта.</h2></div><p>Сравнивайте весь путь,<br/>а не один дешёвый билет.</p></div>
+      <div class="route-choices" id="route-choices" role="group" aria-label="Выбор пары городов"></div>
+      <div id="route-spotlight" class="route-spotlight"></div>
       <aside id="crew" class="expedition-crew" aria-label="Начальник экспедиции">
         <div class="crew-photo"><span class="crew-orbit" aria-hidden="true">出发</span><img src="assets/friend-sticker.png" alt="Наш друг — начальник экспедиции" width="1193" height="1293"><span class="crew-stamp">К ВЫЛЕТУ ГОТОВ*</span></div>
         <div class="crew-speech"><span class="crew-title">НАЧАЛЬНИК ЭКСПЕДИЦИИ</span><p id="crew-quote" aria-live="polite">Я просто спросил: «А давай в Китай?» Теперь у нас целая экспедиция.</p><span class="crew-footnote">*Морально. Рюкзак ещё не собран.</span></div>
         <button class="button subtle" id="crew-advice" type="button">Совет от бро ↻</button>
       </aside>
-      <div class="source-note"><span class="note-symbol">i</span><p>Цены проверены 29 сентября 2026. Авиация — найденная выдача на двоих; ноябрьские поезда ещё не в продаже. Отели и бытовые расходы — плановые суммы. Билеты не забронированы.</p></div>
+      <div class="source-note"><span class="note-symbol">i</span><p>Обновлено 7 октября 2026. Авиацены проверены в выдаче на 2 взрослых, суммы показаны на человека. Жильё, еда и транспорт — смета, не брони. Поезда на конец ноября ещё не продаются. Старый маршрут на 11–20 ноября заменён.</p></div>
     </section>
     <div id="planner-content" class="shell"></div>
   </main>
-  <footer class="shell footer"><div><span class="brand-mark">山</span><b>Лучшие поездки начинаются с «а давай».</b></div><p>Китай на двоих · ноябрь 2026</p><a href="assets/china-guide.pdf" download>Скачать полный PDF</a></footer>
+  <footer class="shell footer"><div><span class="brand-mark">山</span><b>Лучшие поездки начинаются с «а давай».</b></div><p>Китай на двоих · ноябрь 2026</p><a href="guide-25-november.md" download>Скачать руководство</a></footer>
+  <noscript><p class="shell">Для интерактивного выбора включите JavaScript или <a href="guide-25-november.md">откройте текстовое руководство</a>.</p></noscript>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script defer src="assets/vendor/leaflet.js"></script>
   <script type="module" src="app.js"></script>
