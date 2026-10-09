@@ -25,8 +25,8 @@ export function createGeoMap(element, scenes, coordinates, places, modes) {
     weight: 3, opacity: .62, dashArray: '5 8', lineCap: 'round', interactive: false
   }).addTo(map));
 
-  const major = new Set(['astana', 'urc', 'beijing', 'xian', 'luoyang', 'zjj', 'chongqing', 'chengdu']);
-  const labelDirection = { xian: 'left', luoyang: 'right', chengdu: 'left', chongqing: 'top', zjj: 'right' };
+  const major = new Set(['astana', 'urc', 'beijing', 'xian', 'luoyang', 'zjj', 'chongqing', 'chengdu', 'turpan']);
+  const labelDirection = { urc: 'left', turpan: 'right', xian: 'left', luoyang: 'right', chengdu: 'left', chongqing: 'top', zjj: 'right' };
   const dots = Object.fromEntries(used.map(key => {
     const dot = L.circleMarker(coordinates[key], {
       radius: major.has(key) ? 6 : 4, color: '#15312d', weight: 2,

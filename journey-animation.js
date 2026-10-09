@@ -3,6 +3,10 @@ import { createGeoMap } from './geo-map.js';
 // A geographic sketch of the itinerary. Coordinates are illustrative, not a navigation map.
 const places = {
   astana: { x: 103, y: 73, name: 'Астана', label: [-6, -20] },
+  turpan: { x: 355, y: 202, name: 'Турфан', label: [10, 17] },
+  jiaohe: { x: 333, y: 226, name: 'Цзяохэ' },
+  tianchi: { x: 350, y: 129, name: 'Тяньчи' },
+  urcwalk: { x: 293, y: 181, name: 'Урумчи — прогулки' },
   urc: { x: 313, y: 162, name: 'Урумчи', label: [-23, -19] },
   beijing: { x: 788, y: 173, name: 'Пекин', label: [16, 5] },
   mutianyu: { x: 766, y: 141, name: 'Мутяньюй' },
@@ -24,6 +28,7 @@ const places = {
 };
 // WGS84 coordinates for the real map; animated connections indicate order, not exact tracks.
 const coordinates = {
+  turpan: [42.9477,89.1789], jiaohe: [42.9524,89.0692], tianchi: [43.8894,88.1286], urcwalk: [43.7765,87.6217],
   astana: [51.1694, 71.4491], urc: [43.8256, 87.6168], beijing: [39.9042, 116.4074],
   mutianyu: [40.43204, 116.57054], xian: [34.3416, 108.9398], luoyang: [34.6836, 112.4536],
   shaolin: [34.508, 112.935], yiyang: [28.5539, 112.3552], zjj: [29.1294, 110.4783],
