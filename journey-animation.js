@@ -2,6 +2,7 @@ import { createGeoMap } from './geo-map.js';
 
 // A geographic sketch of the itinerary. Coordinates are illustrative, not a navigation map.
 const places = {
+  chengduwalk: { x: 534, y: 319, name: 'Чэнду — городские прогулки' },
   astana: { x: 103, y: 73, name: 'Астана', label: [-6, -20] },
   jiayuguan: { x: 451, y: 196, name: 'Цзяюйгуань', label: [-105, -21] },
   jiayuwall: { x: 425, y: 182, name: 'Крепость и Великая стена' },
@@ -34,6 +35,7 @@ const places = {
 };
 // WGS84 coordinates for the real map; animated connections indicate order, not exact tracks.
 const coordinates = {
+  chengduwalk: [30.657,104.063],
   jiayuguan: [39.7731,98.2892], jiayuwall: [39.802,98.217], zhangye: [38.9259,100.4499], zhangyewalk: [38.936,100.455],
   danxia: [38.976,100.075], pingshanhu: [39.17,100.62],
   turpan: [42.9477,89.1789], jiaohe: [42.9524,89.0692], tianchi: [43.8894,88.1286], urcwalk: [43.7765,87.6217],
