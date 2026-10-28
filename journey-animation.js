@@ -3,6 +3,12 @@ import { createGeoMap } from './geo-map.js';
 // A geographic sketch of the itinerary. Coordinates are illustrative, not a navigation map.
 const places = {
   astana: { x: 103, y: 73, name: 'Астана', label: [-6, -20] },
+  jiayuguan: { x: 451, y: 196, name: 'Цзяюйгуань', label: [-105, -21] },
+  jiayuwall: { x: 425, y: 182, name: 'Крепость и Великая стена' },
+  zhangye: { x: 495, y: 226, name: 'Чжанъе', label: [13, 14] },
+  zhangyewalk: { x: 515, y: 245, name: 'Чжанъе — прогулки' },
+  danxia: { x: 471, y: 238, name: 'Цветные горы Данься' },
+  pingshanhu: { x: 523, y: 205, name: 'Каньон Пиншаньху' },
   turpan: { x: 355, y: 202, name: 'Турфан', label: [10, 17] },
   jiaohe: { x: 333, y: 226, name: 'Цзяохэ' },
   tianchi: { x: 350, y: 129, name: 'Тяньчи' },
@@ -28,6 +34,8 @@ const places = {
 };
 // WGS84 coordinates for the real map; animated connections indicate order, not exact tracks.
 const coordinates = {
+  jiayuguan: [39.7731,98.2892], jiayuwall: [39.802,98.217], zhangye: [38.9259,100.4499], zhangyewalk: [38.936,100.455],
+  danxia: [38.976,100.075], pingshanhu: [39.17,100.62],
   turpan: [42.9477,89.1789], jiaohe: [42.9524,89.0692], tianchi: [43.8894,88.1286], urcwalk: [43.7765,87.6217],
   astana: [51.1694, 71.4491], urc: [43.8256, 87.6168], beijing: [39.9042, 116.4074],
   mutianyu: [40.43204, 116.57054], xian: [34.3416, 108.9398], luoyang: [34.6836, 112.4536],
